@@ -1,6 +1,6 @@
 resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
   name            = "dev-tf-cloud-build-trigger-flask-app"
-  description     = "DEV Cloud build trigger to rebuild Docker container for cloud run for the
+  description     = "DEV Cloud build trigger to rebuild Docker container for cloud run for the\n
                     learning project integrating terraform, build, run, and endpoints"
   github {
     name          = "gcp-cloud-run-flask-app"
@@ -14,7 +14,7 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
     images = ["europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-test/flask-test-image:tag1"]
     step {
       name        = "gcr.io/cloud-builders/docker"
-      args        = ["build", "t", 'europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-test/flask-test-image:tag1', '.']
+      args        = ["build", "t", "europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-test/flask-test-image:tag1", "."]
       id          = "build docker image for flask_app_cloud_run"
       wait_for    = "tf plan"
     }
