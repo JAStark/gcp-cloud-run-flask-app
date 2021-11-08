@@ -20,7 +20,7 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
 #       wait_for    = ["tf plan"]
 #     }
 #   }
-# }
+}
 
 
 resource "google_cloud_run_service" "dev-flask-app-cloud-run" {
