@@ -1,6 +1,6 @@
 resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
   name            = "dev-tf-cloud-build-trigger-flask-app"
-  description     = "PROD Cloud build trigger to rebuild Docker container for cloud run"
+  description     = "DEV Cloud build trigger to rebuild Docker container for cloud run"
   github {
     name          = "gcp-cloud-run-flask-app"
     push {
@@ -23,20 +23,20 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
 }
 
 
-resource "google_cloud_run_service" "dev-flask-app-cloud-run" {
-  name      = "dev-flask-app-cloud-run-service"
-  location  = "europe-west1"
-
-  template {
-    spec {
-      containers {
-        image = "europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-test/flask-test-image:tag1"
-      }
-    }
-  }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-}
+# resource "google_cloud_run_service" "dev-flask-app-cloud-run" {
+#   name      = "dev-flask-app-cloud-run-service"
+#   location  = "europe-west1"
+#
+#   template {
+#     spec {
+#       containers {
+#         image = "europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-test/flask-test-image:tag1"
+#       }
+#     }
+#   }
+#
+#   traffic {
+#     percent         = 100
+#     latest_revision = true
+#   }
+# }
