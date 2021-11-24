@@ -24,20 +24,20 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
 }
 
 
-# resource "google_cloud_run_service" "dev-flask-app-cloud-run" {
-#   name      = "dev-flask-app-cloud-run-service"
-#   location  = "europe-west1"
-#
-#   template {
-#     spec {
-#       containers {
-#         image = "europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-example/flask-endpoint-image:tag_1"
-#       }
-#     }
-#   }
-#
-#   traffic {
-#     percent         = 100
-#     latest_revision = true
-#   }
-# }
+resource "google_cloud_run_service" "dev-flask-app-cloud-run" {
+  name      = "dev-flask-app-cloud-run-service"
+  location  = "europe-west1"
+
+  template {
+    spec {
+      containers {
+        image = "europe-west1-docker.pkg.dev/$PROJECT_ID/dev-gcp-cloud-run-flask-app-example/flask-endpoint-image:tag_1"
+      }
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+}
