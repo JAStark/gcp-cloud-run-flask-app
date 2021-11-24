@@ -9,7 +9,7 @@ resource "google_cloudbuild_trigger" "prod-flask-app-filename-trigger" {
       }
   }
 
-  # filename        = "./flask_app_cloud_run/Dockerfile"
+  filename        = "./flask_app_cloud_run/Dockerfile"
   included_files  = ["./flask_app_cloud_run/Dockerfile", "./flask_app_cloud_run/requirements.txt", "./flask_app_cloud_run/main.py",]
 
   build {
