@@ -18,12 +18,12 @@ provider "google" {
 
 }
 
-resource "google_artifact_registry_repository" "flask-app-cloud-run-repo"     {
+resource "google_artifact_registry_repository" "dev-flask-app-cloud-run-repo"     {
   provider      = google-beta
 
   project       = "silver-antonym-326607"
   location      = "europe-west1"
-  repository_id = "gcp-cloud-run-flask-app-example"
+  repository_id = "dev-gcp-cloud-run-flask-app-example"
   description   = "tf-created repo for flask with endpoints example"
   format        = "DOCKER"
 }

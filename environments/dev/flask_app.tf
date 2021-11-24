@@ -13,10 +13,10 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
   included_files  = ["./flask_app_cloud_run/Dockerfile", "./flask_app_cloud_run/requirements.txt", "./flask_app_cloud_run/main.py",]
 
   build {
-    images = ["europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-example/flask-test-image:tag_1"]
+    images = ["europe-west1-docker.pkg.dev/$PROJECT_ID/dev-gcp-cloud-run-flask-app-example/flask-endpoint-image:tag_1"]
     step {
       name        = "gcr.io/cloud-builders/docker"
-      args        = ["build", "t", "europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-example/flask-test-image:tag_1", "."]
+      args        = ["build", "t", "europe-west1-docker.pkg.dev/$PROJECT_ID/dev-gcp-cloud-run-flask-app-example/flask-endpoint-image:tag_1", "."]
       id          = "build docker image for flask_app_cloud_run"
       wait_for    = ["tf plan"]
     }
@@ -31,7 +31,7 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
 #   template {
 #     spec {
 #       containers {
-#         image = "europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-test/flask-test-image:tag_1"
+#         image = "europe-west1-docker.pkg.dev/$PROJECT_ID/gcp-cloud-run-flask-app-example/flask-endpoint-image:tag_1"
 #       }
 #     }
 #   }
