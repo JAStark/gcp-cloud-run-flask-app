@@ -19,7 +19,7 @@ sslify = SSLify(app)
 @app.route("/hello", methods=["GET"])
 def hello():
     """Method 1: Return a simple hello"""
-    return "Hello", 200
+    return "Hello, you!", 200
 
 
 @app.route("/hello/<my_name>", methods=["GET"])
