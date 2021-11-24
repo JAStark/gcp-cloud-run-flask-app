@@ -2,6 +2,7 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-trigger" {
   name            = "dev-tf-cloud-build-trigger-flask-app"
   description     = "DEV Cloud build trigger to rebuild Docker container for cloud run"
   github {
+    owner         = "JAStark"
     name          = "gcp-cloud-run-flask-app"
     push {
       branch      = ".*"
