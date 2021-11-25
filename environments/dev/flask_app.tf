@@ -39,5 +39,5 @@ resource "google_cloud_run_service" "dev-flask-app-cloud-run" {
     latest_revision = true
   }
 
-  depends_on = [google_cloudbuild_trigger.dev-flask-app-build-trigger.name]
+  depends_on = [google_cloudbuild_trigger.dev-flask-app-build-trigger]
 }
