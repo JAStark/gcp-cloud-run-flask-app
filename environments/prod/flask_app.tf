@@ -17,7 +17,6 @@ resource "google_cloudbuild_trigger" "prod-flask-app-build-trigger" {
       name        = "gcr.io/cloud-builders/docker"
       args        = ["build", "-f", "./flask_app_cloud_run/Dockerfile", "-t", "europe-west1-docker.pkg.dev/$PROJECT_ID/prod-gcp-cloud-run-flask-app-example/flask-endpoint-image:$COMMIT_SHA", "./flask_app_cloud_run"]
       id          = "build & push flask_app_cloud_run image"
-      wait_for    = ["tf init"]
     }
   }
 }
