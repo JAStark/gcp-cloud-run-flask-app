@@ -12,10 +12,10 @@ resource "google_cloudbuild_trigger" "prod-flask-app-build-trigger" {
   included_files  = ["./flask_app_cloud_run/Dockerfile", "./flask_app_cloud_run/requirements.txt", "./flask_app_cloud_run/main.py",]
 
   build {
-    images = ["europe-west1-docker.pkg.dev/$PROJECT_ID/prod-gcp-cloud-run-flask-app-example/flask-endpoint-image:$COMMIT_SHA"]
+    images = ["europe-west1-docker.pkg.dev/$PROJECT_ID/prod-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA"]
     step {
       name        = "gcr.io/cloud-builders/docker"
-      args        = ["build", "-f", "./flask_app_cloud_run/Dockerfile", "-t", "europe-west1-docker.pkg.dev/$PROJECT_ID/prod-gcp-cloud-run-flask-app-example/flask-endpoint-image:$COMMIT_SHA", "./flask_app_cloud_run"]
+      args        = ["build", "-f", "./flask_app_cloud_run/Dockerfile", "-t", "europe-west1-docker.pkg.dev/$PROJECT_ID/prod-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA", "./flask_app_cloud_run"]
       id          = "build & push flask_app_cloud_run image"
     }
   }
@@ -29,7 +29,7 @@ resource "google_cloud_run_service" "prod-flask-app-cloud-run" {
   template {
     spec {
       containers {
-        image = "europe-west1-docker.pkg.dev/$PROJECT_ID/prod-gcp-cloud-run-flask-app-example/flask-endpoint-image:$COMMIT_SHA"
+        image = "europe-west1-docker.pkg.dev/$PROJECT_ID/prod-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA"
       }
     }
   }
