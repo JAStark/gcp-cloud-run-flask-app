@@ -25,6 +25,7 @@ resource "google_cloudbuild_trigger" "prod-flask-app-build-trigger" {
 resource "google_cloud_run_service" "prod-flask-app-cloud-run" {
   name      = "prod-flask-app-cloud-run-service"
   location  = "europe-west1"
+  project = var.project_id
 
   template {
     spec {
