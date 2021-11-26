@@ -32,6 +32,9 @@ resource "google_cloud_run_service" "prod-flask-app-cloud-run" {
       timeout_seconds       = 300
       containers {
         image = "europe-west1-docker.pkg.dev/${var.project_id}/prod-gcp-cloud-run-flask-app-example/flask-endpoint-image:tag_1"
+        ports {
+          container_port    = 5000
+        }
       }
     }
   }
