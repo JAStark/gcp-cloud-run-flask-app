@@ -31,7 +31,7 @@ resource "google_cloud_run_service" "dev-flask-app-cloud-run" {
       container_concurrency = 80
       timeout_seconds       = 300
       containers {
-        image = "europe-west1-docker.pkg.dev/$PROJECT_ID/dev-gcp-cloud-run-flask-app-example/flask-endpoint-image:tag_1"
+        image = "europe-west1-docker.pkg.dev/${var.project_id}/dev-gcp-cloud-run-flask-app-example/flask-endpoint-image:tag_1"
       }
     }
   }
