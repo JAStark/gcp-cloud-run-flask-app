@@ -1,0 +1,35 @@
+steps:
+  # # Install dependencies
+  # - name: python
+  #   entrypoint: pip
+  #   args: ["install", "-r", "../requirements.txt", "--user"]
+  #
+  # # Run unit tests
+  # - name: python
+  #   entrypoint: python
+  #   args: ["-m", "pytest", "--junitxml=${SHORT_SHA}_test_log.xml"]
+
+  # Docker Build
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ["build", "-f", "./flask_app_cloud_run/Dockerfile", "-t", "europe-west1-docker.pkg.dev/${PROJECT_ID}/${BRANCH_NAME}-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA", "./flask_app_cloud_run"]
+
+  # Docker push to Google Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push',  'europe-west1-docker.pkg.dev/${PROJECT_ID}/${BRANCH_NAME}-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA']
+
+  # Deploy to Cloud Run
+  - name: google/cloud-sdk
+    args: ['gcloud', 'run', 'deploy', '${BRANCH_NAME}-flask-app-cloud-run-service',
+           '--image=europe-west1-docker.pkg.dev/${PROJECT_ID}/${BRANCH_NAME}-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA',
+           '--region', 'europe-west1',
+           '--concurrency', '80',
+           '--timeout', '300',
+           '--platform', 'managed',
+           '--allow-unauthenticated']
+
+# Save test logs to Google Cloud Storage
+# artifacts:
+#   objects:
+#     location: gs://$_BUCKET_NAME/
+#     paths:
+#       - ${SHORT_SHA}_test_log.xml
