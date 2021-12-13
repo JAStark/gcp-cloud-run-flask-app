@@ -1,5 +1,5 @@
 resource "google_cloudbuild_trigger" "prod-flask-app-filename-build-trigger" {
-  name            = "prod-tf-cloud-build-trigger-flask-app"
+  name            = "prod-tf-cloud-build-filename-trigger-flask-app"
   description     = "PROD Cloud build trigger to rebuild Docker container for cloud run"
   github {
     owner         = "JAStark"
