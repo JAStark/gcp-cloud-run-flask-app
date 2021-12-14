@@ -39,7 +39,7 @@ def hello_from_body(args):
 @app.route("/")
 def top_page():
     """top_page"""
-    return "Welcome to my app, version 1"
+    return "Welcome to my app, version 1\n"
 
 
 if __name__ == "__main__":
