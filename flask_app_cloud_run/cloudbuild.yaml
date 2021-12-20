@@ -23,10 +23,11 @@ steps:
            '--image=gcr.io/endpoints-release/endpoints-runtime-serverless:2.17.0',
            '--region', 'europe-west1',
            '--platform', 'managed',
+           '--project', '${PROJECT_ID}'
            '--allow-unauthenticated']
 
   # Deploy to Cloud Run
-  - name: 'deploy cloud run'
+  - name: flaskapp
     args: ['gcloud', 'run', 'deploy', '${BRANCH_NAME}-flask-app-cloud-run-service',
            '--image=europe-west1-docker.pkg.dev/${PROJECT_ID}/${BRANCH_NAME}-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA',
            '--region', 'europe-west1',
