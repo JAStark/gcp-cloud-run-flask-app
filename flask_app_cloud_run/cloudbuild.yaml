@@ -18,15 +18,15 @@ steps:
     args: ['push',  'europe-west1-docker.pkg.dev/${PROJECT_ID}/${BRANCH_NAME}-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA']
 
   # Deploy endpoint
-  - name: 'deploy cloud run endpoint'
+  - name: endpoint
     args: ['gcloud', 'run', 'deploy', 'flaskapp-app-gateway',
-               '--image', 'gcr.io/endpoints-release/endpoints-runtime-serverless:2.17.0',
-               '--region', 'europe-west1',
-               '--platform', 'managed',
-               '--allow-unauthenticated']
+           '--image=gcr.io/endpoints-release/endpoints-runtime-serverless:2.17.0',
+           '--region', 'europe-west1',
+           '--platform', 'managed',
+           '--allow-unauthenticated']
 
   # Deploy to Cloud Run
-  - name: 'deploy cloud run'
+  - name: deploy cloud run
     args: ['gcloud', 'run', 'deploy', '${BRANCH_NAME}-flask-app-cloud-run-service',
            '--image=europe-west1-docker.pkg.dev/${PROJECT_ID}/${BRANCH_NAME}-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA',
            '--region', 'europe-west1',
