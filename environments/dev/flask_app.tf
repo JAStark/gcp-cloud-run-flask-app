@@ -5,7 +5,7 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-build-trigger" {
     owner         = "JAStark"
     name          = "gcp-cloud-run-flask-app"
     push {
-      branch      = ".*"
+      branch      = "^dev$"
       }
   }
 

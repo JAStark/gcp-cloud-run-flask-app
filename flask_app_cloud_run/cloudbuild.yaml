@@ -20,7 +20,7 @@ steps:
   # Deploy endpoint
   - name: endpoint
     args: ['gcloud', 'run', 'deploy', '${BRANCH_NAME}-flask-app-gateway',
-           '--image', 'gcr.io/endpoints-release/endpoints-runtime-serverless:latest',
+           '--image=us-docker.pkg.dev/cloudrun/container/hello',
            '--region', 'europe-west1',
            '--platform', 'managed',
            '--project', '${PROJECT_ID}',
