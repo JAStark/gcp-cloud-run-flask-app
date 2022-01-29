@@ -6,7 +6,6 @@ A sample flask application on Cloud Run. From How to Deploy a Flask App on Cloud
 from flask import Flask
 from flask_cors import CORS
 from flask_sslify import SSLify
-
 from webargs import fields
 from webargs.flaskparser import use_args
 
