@@ -17,15 +17,24 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push',  'europe-west1-docker.pkg.dev/${PROJECT_ID}/${BRANCH_NAME}-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA']
 
+  # Deploy endpoint
+  - name: endpoint
+    args: ['gcloud', 'run', 'deploy', '${BRANCH_NAME}-flask-app-gateway',
+           '--image=gcr.io/endpoints-release/endpoints-runtime-serverless:2.17.0',
+           '--region', 'europe-west1',
+           '--platform', 'managed',
+           '--project', '${PROJECT_ID}'
+           '--allow-unauthenticated']
+
   # Deploy to Cloud Run
-  - name: google/cloud-sdk
+  - name: flaskapp
     args: ['gcloud', 'run', 'deploy', '${BRANCH_NAME}-flask-app-cloud-run-service',
            '--image=europe-west1-docker.pkg.dev/${PROJECT_ID}/${BRANCH_NAME}-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA',
            '--region', 'europe-west1',
            '--concurrency', '80',
            '--timeout', '300',
            '--platform', 'managed',
-           '--allow-unauthenticated']
+           '--no-allow-unauthenticated']
 
 # Save test logs to Google Cloud Storage
 # artifacts:
