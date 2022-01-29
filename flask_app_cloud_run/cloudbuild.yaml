@@ -19,7 +19,7 @@ steps:
 
   # Deploy endpoint
   - name: endpoint
-    args: ['gcloud', 'run', 'deploy', 'flaskapp-app-gateway',
+    args: ['gcloud', 'run', 'deploy', '${BRANCH_NAME}-flask-app-gateway',
            '--image=gcr.io/endpoints-release/endpoints-runtime-serverless:2.17.0',
            '--region', 'europe-west1',
            '--platform', 'managed',

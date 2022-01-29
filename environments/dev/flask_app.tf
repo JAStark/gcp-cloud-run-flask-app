@@ -10,7 +10,7 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-build-trigger" {
   }
 
   included_files  = ["./flask_app_cloud_run/**"]
-  filename = "./flask_app_cloud_run/cloudbuild.yaml"
+  filename        = "./flask_app_cloud_run/cloudbuild.yaml"
 
   # build {
   #   images = ["europe-west1-docker.pkg.dev/$PROJECT_ID/dev-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA"]
@@ -22,6 +22,11 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-build-trigger" {
   # }
 }
 
+resource "google_endpoints_service" "openapi_service" {
+  service_name   = "api-name.endpoints.project-id.cloud.goog"
+  project        = var.project_id
+  openapi_config = file("openapi_spec.yml")
+}
 
 # resource "google_cloud_run_service" "dev-flask-app-cloud-run" {
 #   name      = "dev-flask-app-cloud-run-service"

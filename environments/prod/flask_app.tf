@@ -22,6 +22,11 @@ resource "google_cloudbuild_trigger" "prod-flask-app-filename-build-trigger" {
   # }
 }
 
+resource "google_endpoints_service" "openapi_service" {
+  service_name   = "api-name.endpoints.project-id.cloud.goog"
+  project        = var.project_id
+  openapi_config = file("openapi_spec.yml")
+}
 
 # resource "google_cloud_run_service" "prod-flask-app-cloud-run" {
 #   name      = "prod-flask-app-cloud-run-service"
