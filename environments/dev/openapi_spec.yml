@@ -1,23 +1,64 @@
 swagger: '2.0'
 info:
-  title: Cloud Endpoints + Cloud Run
-  description: Sample API on Cloud Endpoints with a Cloud Run backend
-  version: 1.0.0
-host: CLOUD_RUN_HOSTNAME
+  title: Protected API with a Service account
+  description: Protected API with a Service account
+  version: v2
+host: "dev-flask-app-gateway-jrek4srhha-ew.a.run.app"
+x-google-endpoints:
+- name: "dev-flask-app-gateway-jrek4srhha-ew.a.run.app"
+  allowCors: True
 schemes:
   - https
 produces:
   - application/json
 x-google-backend:
-  address: https://dev-flask-app-cloud-run-service-jrek4srhha-ew.a.run.app
+  address: "https://dev-flask-app-cloud-run-service-jrek4srhha-ew.a.run.app"
   protocol: h2
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+  google_service_account:
+    authorizationUrl: ""
+    flow: "implicit"
+    type: "oauth2"
+    x-google-issuer: "cloud-run-endpoint-sa@silver-antonym-326607.iam.gserviceaccount.com"
+    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/cloud-run-endpoint-sa@silver-antonym-326607.iam.gserviceaccount.com"
+    x-google-audiences: "https://dev-flask-app-gateway-jrek4srhha-ew.a.run.app"
 paths:
-  /hello:
+  /hello:  # Method 1
     get:
-      summary: Greet a user
+      summary: Return a simple hello
       operationId: hello
+      produces:
+      - "application/json"
       responses:
-        '200':
-          description: A successful response
-          schema:
-            type: string
+        200:
+          description: ""
+      security:
+      - google_service_account: []
+  /hello/{my_name}:  # Method 2
+    get:
+      description: Return hello with name, given in url
+      operationId: hello_name
+      parameters:
+      - name: my_name
+        in: path
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ""
+      security:
+      - google_service_account: []
+  /hello_body:  # Method 3
+    post:
+      description: Return hello with name, given in body
+      operationId: hello_from_body
+      responses:
+        200:
+          description: ""
+      security:
+      - google_service_account: []
