@@ -9,8 +9,8 @@ resource "google_cloudbuild_trigger" "dev-flask-app-filename-build-trigger" {
       }
   }
 
-  included_files  = ["./flask_app_cloud_run/**"]
-  filename        = "./flask_app_cloud_run/cloudbuild.yaml"
+  included_files  = ["flask_app_cloud_run/**"]
+  filename        = "flask_app_cloud_run/cloudbuild.yaml"
 
   # build {
   #   images = ["europe-west1-docker.pkg.dev/$PROJECT_ID/dev-gcp-cloud-run-flask-app-example/flask-endpoint-image:$SHORT_SHA"]
