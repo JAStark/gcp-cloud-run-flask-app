@@ -3,9 +3,9 @@ info:
   title: Protected API with a Service account
   description: Protected API with a Service account
   version: v2
-host: "$ENDPOINT_HOST"
+host: "prod-flask-app-gateway-jrek4srhha-ew.a.run.app"
 x-google-endpoints:
-- name: "$ENDPOINT_HOST"
+- name: "prod-flask-app-gateway-jrek4srhha-ew.a.run.app"
   allowCors: True
 schemes:
   - https
@@ -25,7 +25,7 @@ securityDefinitions:
     type: "oauth2"
     x-google-issuer: "cloud-run-endpoint-sa@silver-antonym-326607.iam.gserviceaccount.com"
     x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/cloud-run-endpoint-sa@silver-antonym-326607.iam.gserviceaccount.com"
-    x-google-audiences: "$AUD_URL"
+    x-google-audiences: "https://prod-flask-app-cloud-run-service-jrek4srhha-ew.a.run.app"
 paths:
   /hello:  # Method 1
     get:
